@@ -1,12 +1,25 @@
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='pyopsin',
     version='0.1',
-    packages=[''],
-    url='',
-    license='',
     author='Dingyun Huang',
     author_email='dh582@cam.ac.uk',
-    description='A python wrapper for simple opsin usage.'
+    description='A python wrapper for simple OPSIN usage.',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/Dingyun-Huang/pyopsin",
+    packages=setuptools.find_packages(),
+    python_requires='>=3.9',
+    install_requires=[
+        'jpype1>=1.2.0',
+    ],
+    entry_points={
+        'console_scripts': [
+            'PyOPSIN = PyOPSIN.__main__:main',
+        ],
+    },
 )
