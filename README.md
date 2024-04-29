@@ -15,7 +15,7 @@ Usage
 
 Here's an example of how to use the PyOPSIN to generate an IUPAC name for a molecule:
 ```python
-from pyopsin import PyOpsin
+from pyopsin.pyopsin import PyOpsin
 
 # create an PyOpsin object
 opsin = PyOpsin()
