@@ -6,9 +6,9 @@ This is a Python wrapper for the OPSIN (Open Parser for Systematic IUPAC Nomencl
 Installation
 ------------
 
-To install PyOPSIN, clone the repository and run
+To install PyOPSIN, run
 ```
-pip install -e .
+pip install pyopsin
 ```
 Usage
 -----
