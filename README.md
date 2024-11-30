@@ -13,7 +13,7 @@ pip install pyopsin
 Usage
 -----
 
-Here's an example of how to use the PyOPSIN to generate an IUPAC name for a molecule:
+Here's an example of how to use the PyOPSIN to generate SMILES string using the IUPAC name for a molecule:
 ```python
 from pyopsin.pyopsin import PyOpsin
 
