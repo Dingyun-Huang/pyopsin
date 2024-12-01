@@ -4,6 +4,7 @@ import os
 from jpype.types import *
 from pkg_resources import resource_filename
 from typing import List, Union
+from multiprocessing.pool import ThreadPool
 
 
 class PyOpsin:
@@ -67,8 +68,11 @@ class PyOpsin:
         if isinstance(name, str):
             return [self.to_smiles_single(name)]
         elif isinstance(name, list):
-            from joblib import Parallel, delayed
-            return Parallel(n_jobs=num_workers)(delayed(self.to_smiles_single)(n) for n in name)
+            if num_workers > 1:
+                with ThreadPool(num_workers) as p:
+                    return p.map(self.to_smiles_single, name)
+            else:
+                return [self.to_smiles_single(n) for n in name]
         else:
             raise ValueError(
                 "Input name must be a string or a list of strings.")

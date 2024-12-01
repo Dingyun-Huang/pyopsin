@@ -11,7 +11,7 @@ class TestPyOpsin(unittest.TestCase):
         self.assertEqual(smiles, "[N+](=O)([O-])C1=C(C)C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-]")
     
     def test_to_smiles(self):
-        smiles = self.pyopsin.to_smiles(self.names)
+        smiles = self.pyopsin.to_smiles(self.names, num_workers=2)
         self.assertCountEqual(smiles, ["[N+](=O)([O-])C1=C(C)C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-]", "C1=CCCCCC1"])
 
 
