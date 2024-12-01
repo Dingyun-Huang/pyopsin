@@ -3,6 +3,7 @@ import jpype.imports
 import os
 from jpype.types import *
 from pkg_resources import resource_filename
+from typing import List, Union
 
 
 class PyOpsin:
@@ -53,8 +54,28 @@ class PyOpsin:
 
         self.nts = opsin.NameToStructure.getInstance()
 
-    def to_smiles(self, name: str) -> str:
-        """compute SMILES of a molecule for its IUPAC name
+    def to_smiles(self, name: Union[str, List[str]], num_workers: int = 1) -> List[str]:
+        """
+        Compute the SMILES strings of a list of molecule IUPAC names in parallel.
+        Args:
+            name (Union[str, List[str]]): A single IUPAC name or a list of IUPAC names of molecules.
+        Returns:
+            List[str]: A list of SMILES strings corresponding to the input IUPAC names.
+        Raises:
+            ValueError: If the input name is not a string or a list of strings.
+        """
+        if isinstance(name, str):
+            return [self.to_smiles_single(name)]
+        elif isinstance(name, list):
+            from joblib import Parallel, delayed
+            return Parallel(n_jobs=num_workers)(delayed(self.to_smiles_single)(n) for n in name)
+        else:
+            raise ValueError(
+                "Input name must be a string or a list of strings.")
+
+    
+    def to_smiles_single(self, name: str) -> str:
+        """compute a single SMILES of a molecule for its IUPAC name
 
         Args:
             name (str): IUPAC name of a molecule
@@ -64,7 +85,7 @@ class PyOpsin:
         """
 
         results = self.nts.parseChemicalName(name, self.config)
-        return results.getSmiles()
+        return str(results.getSmiles())
 
     def to_cml(self, name: str) -> str:
         """compute CML of a molecule from its IUPAC name
