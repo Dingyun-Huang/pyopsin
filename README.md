@@ -18,14 +18,14 @@ Usage
 Here's an example of how to use the PyOPSIN to generate SMILES string using the IUPAC name for a molecule:
 
 ```python
-from pyopsin.pyopsin import PyOpsin
+from pyopsin import PyOpsin
 
 # create an PyOpsin object
 opsin = PyOpsin()
 
 # generate the SMILES string from an IUPAC name for a molecule
 name = "2,4,6-trinitrotoluene"
-smiles = pyopsin.to_smiles(name)
+smiles = opsin.to_smiles(name)
 
 # print the SMILES string
 print(smiles)
@@ -34,14 +34,14 @@ print(smiles)
 This should output the following SMILES string:
 
 ```bash
-[N+](=O)([O-])C1=C(C)C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-]
+["[N+](=O)([O-])C1=C(C)C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-]"]
 ```
 
 Here is another example of how to invoke parallel processing to process a list of IUPAC names:
 
 ```python
 names = ["2,4,6-trinitrotoluene", "cycloheptene"]
-smiles = pyopsin.to_smiles(names, num_workers=2)
+smiles = opsin.to_smiles(names, num_workers=2)
 print(smiles)
 ```
 
