@@ -97,7 +97,8 @@ class PyOpsin:
             else:
                 print(f"Failed to parse the name: {name} due to exception {e}")
                 return None
-        return str(results.getSmiles())
+        smiles = results.getSmiles()
+        return str(smiles) if smiles else None
 
     def to_cml(self, name: str) -> str:
         """compute CML of a molecule from its IUPAC name

@@ -1,2 +1,2 @@
-from pyopsin import *
+from .pyopsin import *
 
