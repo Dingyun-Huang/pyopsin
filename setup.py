@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pyopsin',
-    version='0.2.2',
+    version='0.2.3',
     author='Dingyun Huang',
     author_email='dh582@cam.ac.uk',
     description='A simple python wrapper for OPSIN: Open Parser for Systematic IUPAC nomenclature.',
