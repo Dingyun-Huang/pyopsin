@@ -12,6 +12,7 @@ class PyOpsin:
     """
 
     def __init__(self, path: str = None,
+                 exit_on_error: bool = True,
                  allowUninterpretableStereo: bool = False,
                  allowRadicals: bool = False,
                  wildcardRadicals: bool = False,
@@ -28,6 +29,8 @@ class PyOpsin:
         Raises:
             FileNotFoundError: No opsin cli .jar file was found.
         """
+        
+        self.exit_on_error = exit_on_error
 
         if not path:
             path = resource_filename(__name__, "opsin_cli.jar")
@@ -77,7 +80,6 @@ class PyOpsin:
             raise ValueError(
                 "Input name must be a string or a list of strings.")
 
-    
     def to_smiles_single(self, name: str) -> str:
         """compute a single SMILES of a molecule for its IUPAC name
 
@@ -87,8 +89,14 @@ class PyOpsin:
         Returns:
             str: SMILES of the molecule
         """
-
-        results = self.nts.parseChemicalName(name, self.config)
+        try:
+            results = self.nts.parseChemicalName(name, self.config)
+        except Exception as e:
+            if self.exit_on_error:
+                raise ValueError(f"Failed to parse the name: {name} due to exception {e}") from e
+            else:
+                print(f"Failed to parse the name: {name} due to exception {e}")
+                return None
         return str(results.getSmiles())
 
     def to_cml(self, name: str) -> str:
