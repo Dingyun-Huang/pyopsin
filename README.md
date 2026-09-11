@@ -6,11 +6,13 @@ This is a Python wrapper for the OPSIN (Open Parser for Systematic IUPAC Nomencl
 Installation
 ------------
 
-To install PyOPSIN, run
+PyOPSIN requires **Java 8+**. During `pip install`, it downloads the latest OPSIN CLI JAR (`opsin-cli-*-jar-with-dependencies.jar`) from the [official OPSIN GitHub releases](https://github.com/dan2097/opsin/releases). If that step is skipped (for example when installing from a wheel), the JAR is downloaded the first time you create a `PyOpsin()` instance.
 
 ```bash
 pip install pyopsin
 ```
+
+The JAR is cached under `~/.cache/pyopsin/` on Unix and `%LOCALAPPDATA%\pyopsin` on Windows. Override the cache directory with the `PYOPSIN_JAR_DIR` environment variable. You can also pass a local JAR with `PyOpsin(path="/path/to/opsin-cli.jar")`.
 
 Usage
 -----

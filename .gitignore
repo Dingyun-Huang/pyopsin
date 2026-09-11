@@ -2,3 +2,5 @@
 *.pyc
 dist/
 venv/
+pyopsin/opsin_cli.jar
+

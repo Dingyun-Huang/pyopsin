@@ -1,10 +1,10 @@
-import os
-from importlib.resources import files
 from multiprocessing.pool import ThreadPool
 
 import jpype
 import jpype.imports
 from jpype.types import *
+
+from .jar import resolve_opsin_jar
 
 
 class PyOpsin:
@@ -20,7 +20,7 @@ class PyOpsin:
         """
 
         Args:
-            path (str, Optional): absolute path of the opsin cli .jar file. Defaults to None.
+            path (str, Optional): absolute path of the opsin cli .jar file. Defaults to a packaged, cached, or newly downloaded JAR.
             allowUninterpretableStereo (bool, optional): Defaults to False.
             allowRadicals (bool, optional): Defaults to False.
             wildcardRadicals (bool, optional): Defaults to False.
@@ -31,15 +31,7 @@ class PyOpsin:
         """
         
         self.exit_on_error = exit_on_error
-
-        if not path:
-            path = str(files(__package__).joinpath("opsin_cli.jar"))
-
-        if os.path.exists(path):
-            self.path = path
-        else:
-            raise FileNotFoundError(
-                f"No OPSIN .jar file was found at {path}, check your path to the file.")
+        self.path = str(resolve_opsin_jar(path))
 
         if not jpype.isJVMStarted():
             jpype.startJVM(classpath=[self.path])
