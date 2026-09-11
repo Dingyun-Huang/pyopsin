@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyopsin"
+version = "0.2.4"
+description = "A simple python wrapper for OPSIN: Open Parser for Systematic IUPAC nomenclature."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Dingyun Huang", email = "dh582@cam.ac.uk" },
+]
+keywords = ["OPSIN", "IUPAC", "chemistry", "SMILES"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "jpype1>=1.2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Dingyun-Huang/pyopsin"
+"OPSIN releases" = "https://github.com/dan2097/opsin/releases"
+
+[tool.setuptools.packages.find]
+include = ["pyopsin"]

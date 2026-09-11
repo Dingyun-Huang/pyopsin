@@ -1,2 +1,2 @@
-jpype1
-joblib
+# Runtime dependencies are declared in pyproject.toml.
+-e .
