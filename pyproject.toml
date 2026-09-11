@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyopsin"
-version = "0.2.4"
+version = "1.0.0"
 description = "A simple python wrapper for OPSIN: Open Parser for Systematic IUPAC nomenclature."
 readme = "README.md"
 requires-python = ">=3.9"
