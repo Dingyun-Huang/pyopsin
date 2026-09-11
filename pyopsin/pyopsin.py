@@ -1,10 +1,10 @@
+import os
+from importlib.resources import files
+from multiprocessing.pool import ThreadPool
+
 import jpype
 import jpype.imports
-import os
 from jpype.types import *
-from pkg_resources import resource_filename
-from typing import List, Union
-from multiprocessing.pool import ThreadPool
 
 
 class PyOpsin:
@@ -33,7 +33,7 @@ class PyOpsin:
         self.exit_on_error = exit_on_error
 
         if not path:
-            path = resource_filename(__name__, "opsin_cli.jar")
+            path = str(files(__package__).joinpath("opsin_cli.jar"))
 
         if os.path.exists(path):
             self.path = path
@@ -58,7 +58,7 @@ class PyOpsin:
 
         self.nts = opsin.NameToStructure.getInstance()
 
-    def to_smiles(self, name: Union[str, List[str]], num_workers: int = 1) -> List[str]:
+    def to_smiles(self, name: str | list[str], num_workers: int = 1) -> list[str]:
         """
         Compute the SMILES strings of a list of molecule IUPAC names in parallel.
         Args:
