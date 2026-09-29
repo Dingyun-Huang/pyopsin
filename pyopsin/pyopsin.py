@@ -34,7 +34,7 @@ class PyOpsin:
         self.path = str(resolve_opsin_jar(path))
 
         if not jpype.isJVMStarted():
-            jpype.startJVM(classpath=[self.path])
+            jpype.startJVM("--enable-native-access=ALL-UNNAMED", classpath=[self.path])
         from uk.ac.cam.ch.wwmm import opsin
 
         self.config = opsin.NameToStructureConfig()
