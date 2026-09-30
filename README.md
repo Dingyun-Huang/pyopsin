@@ -59,6 +59,51 @@ This should output the following SMILES strings:
 ["[N+](=O)([O-])C1=C(C)C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-]", "C1=CCCCCC1"]
 ```
 
+With the default `capture_message=False`, `to_smiles` returns a list of SMILES strings. Pass `capture_message=True` to include the OPSIN parse status and message for each name. Each result is a dictionary with these keys:
+
+- `chemical_name`: the input IUPAC name
+- `smiles`: the SMILES string, or `None` when parsing fails
+- `message`: the OPSIN message
+- `status`: the OPSIN status name, such as `SUCCESS`, `WARNING`, or `FAILURE`
+
+```python
+opsin = PyOpsin(capture_message=True)
+
+names = ["dichlorobenze", "dichlorobenzene"]
+results = opsin.to_smiles(names)
+print(results)
+```
+
+This should output:
+
+```python
+[
+    {
+        "chemical_name": "dichlorobenze",
+        "smiles": None,
+        "message": "dichlorobenze is unparsable due to the following being uninterpretable: benze The following was not parseable: e",
+        "status": "FAILURE",
+    },
+    {
+        "chemical_name": "dichlorobenzene",
+        "smiles": "ClC1=C(C=CC=C1)Cl",
+        "message": "APPEARS_AMBIGUOUS: Connection of chloro to benzen",
+        "status": "WARNING",
+    },
+]
+```
+
+`to_smiles_single` returns the same dictionary for one name.
+
+Tests
+-----
+
+```bash
+python -m unittest test.py
+```
+
+`TestPyOpsinClean` checks SMILES conversion for valid names. `TestPyOpsinAmbiguous` checks `capture_message=True` for an unparsable name (`FAILURE`) and an ambiguous name (`WARNING`).
+
 Acknowledgments
 ---------------
 
